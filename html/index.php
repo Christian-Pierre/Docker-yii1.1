@@ -1,18 +1,10 @@
 <?php
 
-// change the following paths if necessary
-$yii = dirname(__FILE__) . '/yii-1.1.15/yii.php';
-$config = array(
-    'basePath' => dirname(__FILE__),
-    'name' => 'Test Yii App',
-    'components' => array(
-        'db' => array(
-            'connectionString' => 'mysql:host=mysql;dbname=yii_test',
-            'username' => 'root',
-            'password' => 'root',
-        ),
-    ),
-);
+$yii = dirname(__FILE__) . '/yii-1.1.15/framework/yii.php';
+$config = dirname(__FILE__) . '/protected/config/main.php';
+
+defined('YII_DEBUG') or define('YII_DEBUG', true);
+defined('YII_TRACE_LEVEL') or define('YII_TRACE_LEVEL', 3);
 
 require_once($yii);
 Yii::createWebApplication($config)->run();

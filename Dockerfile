@@ -16,8 +16,11 @@ RUN apt-get update && apt-get install -y --allow-unauthenticated \
     pkg-config \
     && rm -rf /var/lib/apt/lists/*
 
-# Ativa extensões do PHP
-RUN docker-php-ext-install mcrypt gd
+# Configura GD com suporte a JPEG e FreeType
+RUN docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/
+
+# Ativa extensões do PHP necessárias (mcrypt, gd, pdo_mysql)
+RUN docker-php-ext-install mcrypt gd pdo_mysql
 
 # Habilita mod_rewrite para Yii
 RUN a2enmod rewrite
@@ -25,8 +28,8 @@ RUN a2enmod rewrite
 # Ajusta diretório de trabalho
 WORKDIR /var/www/html
 
-# Copia código da aplicação
-COPY . /var/www/html
+# Copia SOMENTE o conteúdo da pasta html para /var/www/html
+COPY ./html /var/www/html
 
 # Ajusta permissões
 RUN chown -R www-data:www-data /var/www/html
