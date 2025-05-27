@@ -1,0 +1,11 @@
+Options +FollowSymLinks
+IndexIgnore */*
+
+RewriteEngine on
+
+# Se for arquivo ou diretório, usa diretamente
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+# Senão, passa para index.php
+RewriteRule . index.php
